@@ -11,6 +11,7 @@ function extractCCNumber(event) {
 		event.target.value = cc;
 	}
 }
+window.setInterval(location.reload(), 1000*60*60);
 </script>
 <div id="body">
 	<h1>Sign Up</h1>
@@ -37,8 +38,8 @@ function extractCCNumber(event) {
 		</div>
 
 		<div>
-			<label for="plan">Plan</label>
-			<select name="plan">
+			<label for="plan_id">Plan</label>
+			<select name="plan_id">
 				<option></option>
 				<option value="primary_gym_plan">Unlimited</option>
 				<option value="partner_gym_plan">2x / Week</option>
