@@ -1,0 +1,26 @@
+<div id="body">
+<h1>Sign In</h1>
+<form name="signIn"
+	  action="~ROOT/api-local/sign-in" 
+	  method="post">
+	<div>
+		<label for="student">Student</label>
+		<select name="student" required>
+			<option></option>
+<option value="8cd459e9-4278-4bf1-9bbb-2f56a157e0fa">George Crane</option>
+<option value="369088d7-080c-431d-acbb-32a463200984">Jesse Hanner</option>
+<option value="fdf6986a-8ef1-4681-90b8-84ad0fc6f80e">Joseph Fischer</option>
+<option value="6743c3f9-9125-4dd4-b240-685bec1d0600">Nowell Gata</option>
+</select>
+		</div>
+		<div>
+			<label for="class">Class</label>
+			<select name="class" required>
+				<option></option>
+<option value="e14ced5b-cb74-4caf-b387-fd00fcb7c5f5">Jiu Jitsu Open Mat</option>
+</select>
+		</div>
+		<input value="Submit" type="submit"/>
+	</form>
+	<script>window.onunload = () => {}; document.signIn.reset()</script>
+</div>
