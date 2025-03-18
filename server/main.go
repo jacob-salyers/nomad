@@ -1,15 +1,32 @@
 package main
 
 import (
-	"log"
 	"flag"
+	"log"
 	"net/http"
+	"os"
+   _ "nomad/streetmed"
+
 )
 
 func main() {
 	useSSL := flag.Bool("s", false, "Toggles http/https")
 	local := flag.Bool("l", false, "Toggles local-only pages")
+	adhoc := flag.Bool("a", false, "Toggles adhoc code")
 	flag.Parse()
+
+    if *adhoc {
+
+        tmp := MailGunInput {
+            ReplyTo: "Jacob Salyers <kswnin@gmail.com>",
+            From: "Nomad Form <mailgun@mg.nomad-jiujitsu.com>",
+            To: "caravancollective@outlook.com",
+            Subject: "Go Test 1",
+            Body: "This is some text!",
+        }
+        mailgun(tmp)
+        os.Exit(0)
+    }
 
 	if *local {
 		http.Handle("/api-local/sign-in", http.HandlerFunc(apiLocalSignIn))
