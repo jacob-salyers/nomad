@@ -11,7 +11,6 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
-
 func logWrapper(wrappedHandler http.Handler) http.Handler {
 	return http.HandlerFunc(
 		func(res http.ResponseWriter, req *http.Request) {
@@ -31,7 +30,6 @@ func redirectToHTTPS() {
 	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirectHelper)))
 }
 
-
 type MailGunInput struct {
     To string `url:"to,omitempty"`
     From string `url:"from,omitempty"`
@@ -45,7 +43,7 @@ func mailgun(in MailGunInput) error {
     if err != nil {
         return err
     }
-    
+
     client := &http.Client{}
     req, _ := http.NewRequest("POST",
         "https://api.mailgun.net/v3/mg.nomad-jiujitsu.com/messages",

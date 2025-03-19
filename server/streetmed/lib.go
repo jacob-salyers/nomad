@@ -19,7 +19,7 @@ type SearchMethod string
 const LINEAR SearchMethod = "linear"
 const TREE   SearchMethod = "tree"
 
-type searchOpts struct { 
+type searchOpts struct {
     SearchMethod SearchMethod
 }
 
@@ -31,7 +31,7 @@ func (this set[T]) Contains(k T) bool { _, ok := this[k]; return ok }
 func ToHTML(this set[string]) (string, error) {
     var sb strings.Builder
     sb.WriteString("<table><tr><th>File</th></tr>")
-    
+
     for k := range this {
         sb.WriteString(fmt.Sprintf(`<tr><td><a href="/streetmed/files/%s.pdf" target="blank">%s</a></td></tr>`, k, html.EscapeString(string(k))))
     }
@@ -79,7 +79,7 @@ func search(query query, opts searchOpts) (set[string], error) {
     default:
         err = errors.New("Invalid Method")
     }
-    
+
     if err != nil { return nil, err }
 
     ret := or(results)
@@ -159,7 +159,7 @@ func (this *tree) search(query string) set[string] {
         tmp = &ptr[i].Leaf
         ptr = &ptr[i].Branch
     }
-    
+
     for k := range *tmp { ret.Add(files[k]) }
 
     return ret
@@ -177,7 +177,7 @@ func runeToIndex(c rune) int {
 func uniqueWords(in string) []string {
     r, err := regexp.Compile("[^a-z]+")
     if err != nil { log.Fatal(err) }
-    
+
     arr := r.Split(strings.ToLower(in), -1)
     sort.Strings(arr)
     var out []string

@@ -14,7 +14,7 @@ new_customer() {
 	while read -r line 
 	do
 		params=`echo $line | awk '{print $6}'`
-		curl -d "security_key=$NMI_TOKEN&recurring=add_subscription&$params" $transact_url
+		curl -d "security_key=$NMI_TOKEN&customer_vault=add_customer&recurring=add_subscription&$params" $transact_url
 	done < $file
 }
 
