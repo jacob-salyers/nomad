@@ -1,14 +1,12 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"net/smtp"
 	"strings"
 
-	"github.com/google/go-querystring/query"
 )
 
 func logWrapper(wrappedHandler http.Handler) http.Handler {
@@ -30,7 +28,26 @@ func redirectToHTTPS() {
 	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirectHelper)))
 }
 
-type MailGunInput struct {
+func forwardToCaravan(msg string) error {
+	body := []string{
+		"Subject: Form Submission from nomad-jiujitsu.com",
+		"To: caravancollective@outlook.com",
+		"From: kswnin@gmail.com",
+		"",
+	}
+
+	body = append(body, strings.Split(msg, "\n")...)
+
+	return smtp.SendMail(
+		"smtp.gmail.com:587",
+		smtp.PlainAuth("", FROM, GMAIL_KEY, "smtp.gmail.com"),
+		FROM,
+		[]string{"caravancollective@outlook.com"},
+		[]byte(strings.Join(body, "\r\n")),
+	)
+}
+
+/*type MailGunInput struct {
     To string `url:"to,omitempty"`
     From string `url:"from,omitempty"`
     ReplyTo string `url:"h:Reply-To,omitempty"`
@@ -65,4 +82,4 @@ func mailgun(in MailGunInput) error {
         return errors.New(string(body))
     }
     return nil
-}
+}*/

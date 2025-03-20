@@ -1,13 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"flag"
 	"log"
 	"net/http"
 	"os"
-   _ "nomad/streetmed"
-
 )
+
+var GMAIL_KEY string
+const FROM = "kswnin@gmail.com"
+func init() {
+	code := os.Getenv("CODE_DIR")
+	if code == "" {
+		log.Fatal("CODE_DIR is unknown")
+	}
+
+	b, e := os.ReadFile(code + "/nomad/.credentials/gmail-smtp")
+	if e != nil {
+		log.Fatal(e)
+	}
+
+	GMAIL_KEY = string(b)
+
+}
 
 func main() {
 	useSSL := flag.Bool("s", false, "Toggles http/https")
@@ -16,15 +32,9 @@ func main() {
 	flag.Parse()
 
     if *adhoc {
-
-        tmp := MailGunInput {
-            ReplyTo: "Jacob Salyers <kswnin@gmail.com>",
-            From: "Nomad Form <mailgun@mg.nomad-jiujitsu.com>",
-            To: "caravancollective@outlook.com",
-            Subject: "Go Test 1",
-            Body: "This is some text!",
-        }
-        mailgun(tmp)
+		if err := forwardToCaravan("test message"); err != nil {
+			log.Fatal(err)
+		}
         os.Exit(0)
     }
 

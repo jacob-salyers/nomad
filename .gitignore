@@ -13,5 +13,6 @@ streetmed-data/
 streetmed-files/
 debugging
 
-server/credentials.go
 config/
+.credentials/
+.credentials.json

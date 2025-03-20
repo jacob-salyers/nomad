@@ -48,19 +48,7 @@ func apiSubmit(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-    err = mailgun(MailGunInput {
-        ReplyTo: fmt.Sprintf( "%s %s <%s>", 
-            first,
-            last,
-            email),
-        From: "Nomad Form <mailgun@mg.nomad-jiujitsu.com>",
-        To: "caravancollective@outlook.com",
-        Subject: fmt.Sprintf("Form Submission from %s %s", 
-            first,
-            last),
-        Body: msg,
-        })
-
+    err = forwardToCaravan(msg)
     if err != nil {
         log.Println(err)
     }
