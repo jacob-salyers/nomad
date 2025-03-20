@@ -48,8 +48,8 @@ func apiSubmit(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-    err = forwardToCaravan(msg)
-    if err != nil {
+
+    if err := forwardToCaravan(msg, first, last, email); err != nil {
         log.Println(err)
     }
 

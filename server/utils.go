@@ -28,16 +28,18 @@ func redirectToHTTPS() {
 	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirectHelper)))
 }
 
-func forwardToCaravan(msg string) error {
+func forwardToCaravan(msg string, first string, last string, email string) error {
 	body := []string{
 		"Subject: Form Submission from nomad-jiujitsu.com",
-		"To: caravancollective@outlook.com",
+		"To: <caravancollective@outlook.com>",
 		"From: kswnin@gmail.com",
+		fmt.Sprintf("Reply-To: %s %s <%s>", first, last, email),
+		"",
+		fmt.Sprintf("Replying to: %s %s <%s>", first, last, email),
 		"",
 	}
 
 	body = append(body, strings.Split(msg, "\n")...)
-
 	return smtp.SendMail(
 		"smtp.gmail.com:587",
 		smtp.PlainAuth("", FROM, GMAIL_KEY, "smtp.gmail.com"),

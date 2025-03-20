@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"flag"
 	"log"
 	"net/http"
@@ -32,7 +31,7 @@ func main() {
 	flag.Parse()
 
     if *adhoc {
-		if err := forwardToCaravan("test message"); err != nil {
+		if err := forwardToCaravan("Final test!", "Jacob", "Salyers", "salyers@slu.edu"); err != nil {
 			log.Fatal(err)
 		}
         os.Exit(0)
